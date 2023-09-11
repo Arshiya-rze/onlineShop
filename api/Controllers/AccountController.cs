@@ -18,7 +18,7 @@ public class AccountController : ControllerBase
     }
     #endregion
 
-    // concurrency
+    // Concurrency => async
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Create(RegisterDto userInput, CancellationToken cancellationToken)
     // public async Task<ActionResult<UserDto>> Create(AppUser userInput, CancellationToken cancellationToken)
