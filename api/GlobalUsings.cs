@@ -7,3 +7,4 @@ global using api.DTOs;
 global using MongoDB.Driver.Linq; // needed for AnyAsync()
 global using System.ComponentModel.DataAnnotations;
 global using MongoDB.Bson.Serialization.Attributes;
+global using api.Interfaces;

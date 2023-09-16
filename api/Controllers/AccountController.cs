@@ -6,15 +6,21 @@ public class AccountController : ControllerBase
 {
     #region Db and Token Settings
     private const string _collectionName = "users";
-    private readonly IMongoCollection<AppUser>? _collection;
+    private readonly IMongoCollection<AppUser> _collection;
+    private readonly IAccountRepository _accountRepository;
+
+    // private readonly IAccountRepository _accountRepository;
     // private readonly ITokenService _tokenService; // save user credential as a token
 
     // constructor - dependency injection
-    public AccountController(IMongoClient client, IMongoDbSettings dbSettings)
+    public AccountController(IMongoClient client, IMongoDbSettings dbSettings, IAccountRepository accountRepository)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
+
+        _accountRepository = accountRepository;
         // _tokenService = tokenService;
+
     }
     #endregion
 
@@ -22,6 +28,8 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Create(RegisterDto userInput, CancellationToken cancellationToken)
     {
+        _accountRepository.CalcTotalAges(12, 25);
+
         if (userInput.Password != userInput.ConfirmPassword)
             BadRequest("Passwords don't match!"); // is it correct? What does it do?
                                                   // return BadRequest("Passwords don't match!");
@@ -60,6 +68,8 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
     {
+        _accountRepository.Create(23, "Mozhgan");
+
         AppUser appUser = await _collection.Find<AppUser>(user =>
             user.Email == userInput.Email.ToLower().Trim()
             && user.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
