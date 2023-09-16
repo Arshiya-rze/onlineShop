@@ -21,7 +21,6 @@ public class AccountController : ControllerBase
     // Concurrency => async
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Create(RegisterDto userInput, CancellationToken cancellationToken)
-    // public async Task<ActionResult<UserDto>> Create(AppUser userInput, CancellationToken cancellationToken)
     {
         if (userInput.Password != userInput.ConfirmPassword)
             BadRequest("Passwords don't match!"); // is it correct? What does it do?
