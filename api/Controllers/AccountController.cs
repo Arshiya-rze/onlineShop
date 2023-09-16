@@ -6,10 +6,9 @@ public class AccountController : ControllerBase
 {
     #region Db and Token Settings
     private const string _collectionName = "users";
-    private readonly IMongoCollection<AppUser> _collection;
+    private readonly IMongoCollection<AppUser>? _collection;
     private readonly IAccountRepository _accountRepository;
 
-    // private readonly IAccountRepository _accountRepository;
     // private readonly ITokenService _tokenService; // save user credential as a token
 
     // constructor - dependency injection
