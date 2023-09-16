@@ -30,6 +30,14 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 });
 #endregion MongoDbSettings
 
+#region Cors: baraye ta'eede Angular HttpClient requests
+builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(policy => 
+            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+    });
+#endregion Cors
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
