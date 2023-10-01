@@ -1,3 +1,4 @@
+using api.Repositories;
 using api.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -37,6 +38,12 @@ builder.Services.AddCors(options =>
             policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
     });
 #endregion Cors
+
+#region Dependency Injections
+// builder.Services.AddSingleton<IAccountRepository, AccountRepository>(); App LifeCycle
+builder.Services.AddScoped<IAccountRepository, AccountRepository>(); // Controller LifeCycle
+
+#endregion Dependency Injections
 
 var app = builder.Build();
 

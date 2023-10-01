@@ -2,18 +2,45 @@ namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
-    public void Create(int age, string name)
+    private const string _collectionName = "users";
+    private readonly IMongoCollection<AppUser>? _collection;
+
+    public AccountRepository(IMongoClient client,IMongoDbSettings dbSettings)
     {
-        Console.WriteLine(Convert.ToString(age), name); // implementation
+        var database = client.GetDatabase(dbSettings.DatabaseName);
+        _collection = database.GetCollection<AppUser>(_collectionName);
     }
 
-    public int CalcTotalAges(int age1, int age2)
+    public async Task<UserDto?> Create(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        return age1 + age2; // implementation
-    }
+        // check if user/email already exists
+        bool doesExist = await _collection.Find<AppUser>(user =>
+            user.Email == userInput.Email.ToLower().Trim()).AnyAsync(cancellationToken);
 
-    public bool IsAlive()
-    {
-        return false;
+        if (doesExist)
+            return null;
+
+        // if user/email does not exist, create a new AppUser. 
+        AppUser appUser = new AppUser(
+            Id: null,
+            Email: userInput.Email.ToLower().Trim(),
+            Password: userInput.Password,
+            ConfirmPassword: userInput.ConfirmPassword
+        );
+
+        if (_collection is not null)
+            await _collection.InsertOneAsync(appUser, null, cancellationToken);
+
+        if (appUser.Id is not null)
+        {
+            UserDto userDto = new UserDto(
+                Id: appUser.Id,
+                Email: appUser.Email // amir@gmail.com
+            );
+
+            return userDto;
+        }
+
+        return null;
     }
 }
