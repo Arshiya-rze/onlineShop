@@ -1,5 +1,3 @@
-using api.Repositories;
-
 namespace api.Controllers;
 
 [ApiController]
@@ -7,9 +5,9 @@ namespace api.Controllers;
 public class AccountController : ControllerBase
 {
     #region Token Settings
-    private readonly IAccountRepository _accountRepository;
 
     // private readonly ITokenService _tokenService; // save user credential as a token
+    private readonly IAccountRepository _accountRepository;
 
     // constructor - dependency injection
     public AccountController(IAccountRepository accountRepository)
@@ -47,28 +45,14 @@ public class AccountController : ControllerBase
     /// <param name="userInput"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
-    // [HttpPost("login")]
-    // public async Task<ActionResult<UserDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
-    // {
-    // _accountRepository.Create(23, "Mozhgan");
+    [HttpPost("login")]
+    public async Task<ActionResult<UserDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
+    {
+        UserDto? userDto = await _accountRepository.Login(userInput, cancellationToken);
 
-    // AppUser appUser = await _collection.Find<AppUser>(user =>
-    //     user.Email == userInput.Email.ToLower().Trim()
-    //     && user.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
+        if (userDto is null)
+            return Unauthorized("Wrong username or password");
 
-    // if (appUser is null)
-    //     return Unauthorized("Wrong username or password");
-
-    // if (appUser.Id is not null)
-    // {
-    //     UserDto userDto = new UserDto(
-    //         Id: appUser.Id,
-    //         Email: appUser.Email
-    //     );
-
-    //     return userDto;
-    // }
-
-    // return BadRequest("Task failed");
-    // }
+        return userDto; // successful login
+    }
 }

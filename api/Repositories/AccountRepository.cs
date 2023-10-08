@@ -5,7 +5,7 @@ public class AccountRepository : IAccountRepository
     private const string _collectionName = "users";
     private readonly IMongoCollection<AppUser>? _collection;
 
-    public AccountRepository(IMongoClient client,IMongoDbSettings dbSettings)
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
@@ -36,6 +36,28 @@ public class AccountRepository : IAccountRepository
             UserDto userDto = new UserDto(
                 Id: appUser.Id,
                 Email: appUser.Email // amir@gmail.com
+            );
+
+            return userDto;
+        }
+
+        return null;
+    }
+
+    public async Task<UserDto?> Login(LoginDto userInput, CancellationToken cancellationToken)
+    {
+        AppUser appUser = await _collection.Find<AppUser>(user =>
+            user.Email == userInput.Email.ToLower().Trim()
+            && user.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
+
+        if (appUser is null)
+            return null;
+
+        if (appUser.Id is not null)
+        {
+            UserDto userDto = new UserDto(
+                Id: appUser.Id,
+                Email: appUser.Email
             );
 
             return userDto;
