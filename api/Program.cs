@@ -1,8 +1,3 @@
-using api.Repositories;
-using api.Settings;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -47,14 +42,9 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>(); // Controll
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseHttpsRedirection();
+
+app.UseCors(); // this line is added
 
 app.UseAuthorization();
 

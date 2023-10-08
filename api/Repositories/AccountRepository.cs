@@ -14,10 +14,10 @@ public class AccountRepository : IAccountRepository
     public async Task<UserDto?> Create(RegisterDto userInput, CancellationToken cancellationToken)
     {
         // check if user/email already exists
-        bool doesExist = await _collection.Find<AppUser>(user =>
+        bool doesAccountExist = await _collection.Find<AppUser>(user =>
             user.Email == userInput.Email.ToLower().Trim()).AnyAsync(cancellationToken);
 
-        if (doesExist)
+        if (doesAccountExist)
             return null;
 
         // if user/email does not exist, create a new AppUser. 

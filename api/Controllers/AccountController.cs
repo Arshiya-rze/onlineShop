@@ -26,12 +26,12 @@ public class AccountController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Create(RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
     {
         if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
             return BadRequest("Passwords don't match!"); // is it correct? What does it do?
 
-        UserDto? userDto = await _accountRepository.Create(userInput, cancellationToken);
+        UserDto? userDto = await _accountRepository.Create(userInput, cancellationToken); // argument
 
         if (userDto is null)
             return BadRequest("Email/Username is taken.");
