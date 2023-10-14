@@ -11,7 +11,7 @@ public class AccountRepository : IAccountRepository
         _collection = database.GetCollection<AppUser>(_collectionName);
     }
 
-    public async Task<UserDto?> Create(RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<UserDto?> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
         // check if user/email already exists
         bool doesAccountExist = await _collection.Find<AppUser>(user =>
@@ -44,7 +44,7 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-    public async Task<UserDto?> Login(LoginDto userInput, CancellationToken cancellationToken)
+    public async Task<UserDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user =>
             user.Email == userInput.Email.ToLower().Trim()

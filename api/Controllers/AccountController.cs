@@ -1,8 +1,6 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AccountController : ControllerBase
+public class AccountController : BaseApiController
 {
     #region Token Settings
 
@@ -31,7 +29,7 @@ public class AccountController : ControllerBase
         if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
             return BadRequest("Passwords don't match!"); // is it correct? What does it do?
 
-        UserDto? userDto = await _accountRepository.Create(userInput, cancellationToken); // argument
+        UserDto? userDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
 
         if (userDto is null)
             return BadRequest("Email/Username is taken.");
@@ -45,14 +43,16 @@ public class AccountController : ControllerBase
     /// <param name="userInput"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
-    [HttpPost("login")]
+    [HttpPost("login")] // End point
     public async Task<ActionResult<UserDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
     {
-        UserDto? userDto = await _accountRepository.Login(userInput, cancellationToken);
+        UserDto? userDto = await _accountRepository.LoginAsync(userInput, cancellationToken);
 
         if (userDto is null)
             return Unauthorized("Wrong username or password");
 
         return userDto; // successful login
     }
+
+    // Reset Passsword
 }

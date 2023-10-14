@@ -1,44 +1,40 @@
 namespace api.Controllers;
 
-// [ApiController]
-// [Route("api/[controller]")]
 public class UserController : BaseApiController // move Using to GlobalUsing.cs
-// public class UserController : ControllerBase
 {
+    private readonly IUserRepository _userRepository;
+
     #region Db and Token Settings
-    const string _collectionName = "users";
-    private readonly IMongoCollection<AppUser>? _collection;
     // private readonly ITokenService _tokenService; // save user credential as a token
 
     // constructor - dependency injection
-    public UserController(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserController(IUserRepository userRepository)
     {
-        var database = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = database.GetCollection<AppUser>(_collectionName);
-        // _tokenService = tokenService;
+        _userRepository = userRepository;
     }
     #endregion
 
     // MAKE THESE MATHODS ASYNC
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppUser>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
     {
-        List<AppUser> appUsers = await _collection.Find<AppUser>(new BsonDocument()).ToListAsync(cancellationToken);
+        List<UserDto> userDtos = await _userRepository.GetAllAsync(cancellationToken);
 
-        if (!appUsers.Any())
+        if (!userDtos.Any()) // []
             return NoContent();
 
-        return appUsers;
+        return userDtos;
     }
 
     [HttpGet("get-by-id/{userId}")]
     public async Task<ActionResult<AppUser>> GetById(string userId, CancellationToken cancellationToken)
     {
-        AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
+        // AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
 
-        if(appUser is null)
-            return NotFound("No user was found");
+        // if(appUser is null)
+        //     return NotFound("No user was found");
 
-        return appUser;
+        // return appUser;
+        return null;
     }
 }
