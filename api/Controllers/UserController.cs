@@ -1,8 +1,9 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+// [ApiController]
+// [Route("api/[controller]")]
+public class UserController : BaseApiController // move Using to GlobalUsing.cs
+// public class UserController : ControllerBase
 {
     #region Db and Token Settings
     const string _collectionName = "users";
