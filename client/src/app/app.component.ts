@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-// import { User } from './models/user.model';
-import { AccountService } from './services/account.service';
+import { Component } from '@angular/core';
+import { User } from './models/user.model';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,29 +10,28 @@ import { AccountService } from './services/account.service';
 export class AppComponent {
   // users: User[] | undefined;
 
-  constructor(private http: HttpClient, private accountService: AccountService, private fb: FormBuilder) {
-
-  }
+  allUsers: User[] | undefined;
+  constructor(private userService: UserService) { }
 
   // ngOnInit(): void {
-    // this.registerFg;
+  // this.registerFg;
   // }
 
   // showUsers(): void {
-    // this.http.get<User[]>('https://localhost:5001/api/use').subscribe({
-    //   next: (response: User[]) => {
-    //     console.log(response);
-    //     this.users = response;
-    //   },
-    //   error: err => console.log(err.message)
-    // });
+  // this.http.get<User[]>('https://localhost:5001/api/use').subscribe({
+  //   next: (response: User[]) => {
+  //     console.log(response);
+  //     this.users = response;
+  //   },
+  //   error: err => console.log(err.message)
+  // });
 
-    // this.accountService.getUsers().subscribe({
-    //   next: (response: User[]) => {
-    //     console.log(response);
-    //     this.users = response;
-    //   }
-    // });
+  // this.accountService.getUsers().subscribe({
+  //   next: (response: User[]) => {
+  //     console.log(response);
+  //     this.users = response;
+  //   }
+  // });
   // }
 
 

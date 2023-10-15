@@ -2,14 +2,15 @@ namespace api.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    const string _collectionName = "users";
-    private readonly IMongoCollection<AppUser>? _collection;
+    // field / class members
+    IMongoCollection<AppUser>? _collection;
 
     public UserRepository(IMongoClient client, IMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = database.GetCollection<AppUser>(_collectionName);
-        // _tokenService = tokenService;
+        _collection = database.GetCollection<AppUser>("users");
+
+        // // _tokenService = tokenService;
     }
 
     public async Task<List<UserDto>> GetAllAsync(CancellationToken cancellationToken)

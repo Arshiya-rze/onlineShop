@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // // CRUD
-// import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // // Form
 // import { FormsModule } from '@angular/forms';
@@ -15,12 +15,24 @@ import { AppComponent } from './app.component';
 // // Material
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatInputModule } from '@angular/material/input';
-// import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { RegisterComponent } from './components/account/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent,
+    NoAccessComponent,
+    NavbarComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +40,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
 
     // // CRUD
-    // HttpClientModule,
+    HttpClientModule,
 
     // // Form
     // FormsModule,
@@ -37,7 +49,7 @@ import { AppComponent } from './app.component';
     // // Material
     // MatFormFieldModule,
     // MatInputModule,
-    // MatButtonModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
