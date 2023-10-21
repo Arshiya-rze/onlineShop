@@ -1,3 +1,6 @@
+// using System.Security.Cryptography;
+// using System.Text;
+
 namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
@@ -28,18 +31,28 @@ public class AccountRepository : IAccountRepository
             ConfirmPassword: userInput.ConfirmPassword
         );
 
-        if (_collection is not null)
-            await _collection.InsertOneAsync(appUser, null, cancellationToken);
+        // manually dispose HMACSHA512 after being done
+        // using var hmac = new HMACSHA512();
 
-        if (appUser.Id is not null)
-        {
-            UserDto userDto = new UserDto(
-                Id: appUser.Id,
-                Email: appUser.Email // amir@gmail.com
-            );
+        // AppUser appUser = new AppUser(
+        //     Id: null,
+        //     Email: userInput.Email.ToLower().Trim(),
+        //     PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
+        //     PasswordSalt: hmac.Key
+        // );
 
-            return userDto;
-        }
+        // if (_collection is not null)
+        //     await _collection.InsertOneAsync(appUser, null, cancellationToken);
+
+        // if (appUser.Id is not null)
+        // {
+        //     UserDto userDto = new UserDto(
+        //         Id: appUser.Id,
+        //         Email: appUser.Email // amir@gmail.com
+        //     );
+
+        //     return userDto;
+        // }
 
         return null;
     }
@@ -62,6 +75,27 @@ public class AccountRepository : IAccountRepository
 
             return userDto;
         }
+
+        // AppUser appUser = await _collection.Find<AppUser>(user =>
+        //     user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
+
+        // // Import and use HMACSHA512 including PasswordSalt
+        // using var hmac = new HMACSHA512(appUser.PasswordSalt!);
+
+        // // Convert userInputPassword to Hash
+        // var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password));
+
+        // // Check if password is correct and matched with Database PasswordHash. 
+        // if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComputedHash))
+        // {
+        //     if (appUser.Id is not null) // merge it!
+        //     {
+        //         return new UserDto(
+        //             Id: appUser.Id,
+        //             Email: appUser.Email
+        //         );
+        //     }
+        // }
 
         return null;
     }
