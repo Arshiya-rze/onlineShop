@@ -1,6 +1,9 @@
 // using System.Security.Cryptography;
 // using System.Text;
 
+using System.Security.Cryptography;
+using System.Text;
+
 namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
@@ -23,36 +26,28 @@ public class AccountRepository : IAccountRepository
         if (doesAccountExist)
             return null;
 
-        // if user/email does not exist, create a new AppUser. 
+        // manually dispose HMACSHA512 after being done
+        using var hmac = new HMACSHA512();
+
         AppUser appUser = new AppUser(
             Id: null,
             Email: userInput.Email.ToLower().Trim(),
-            Password: userInput.Password,
-            ConfirmPassword: userInput.ConfirmPassword
+            PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
+            PasswordSalt: hmac.Key
         );
 
-        // manually dispose HMACSHA512 after being done
-        // using var hmac = new HMACSHA512();
+        if (_collection is not null)
+            await _collection.InsertOneAsync(appUser, null, cancellationToken);
 
-        // AppUser appUser = new AppUser(
-        //     Id: null,
-        //     Email: userInput.Email.ToLower().Trim(),
-        //     PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
-        //     PasswordSalt: hmac.Key
-        // );
+        if (appUser.Id is not null)
+        {
+            UserDto userDto = new UserDto(
+                Id: appUser.Id,
+                Email: appUser.Email // amir@gmail.com
+            );
 
-        // if (_collection is not null)
-        //     await _collection.InsertOneAsync(appUser, null, cancellationToken);
-
-        // if (appUser.Id is not null)
-        // {
-        //     UserDto userDto = new UserDto(
-        //         Id: appUser.Id,
-        //         Email: appUser.Email // amir@gmail.com
-        //     );
-
-        //     return userDto;
-        // }
+            return userDto;
+        }
 
         return null;
     }
@@ -60,42 +55,25 @@ public class AccountRepository : IAccountRepository
     public async Task<UserDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user =>
-            user.Email == userInput.Email.ToLower().Trim()
-            && user.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
+            user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 
-        if (appUser is null)
-            return null;
-
-        if (appUser.Id is not null)
-        {
-            UserDto userDto = new UserDto(
-                Id: appUser.Id,
-                Email: appUser.Email
-            );
-
-            return userDto;
-        }
-
-        // AppUser appUser = await _collection.Find<AppUser>(user =>
-        //     user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
-
-        // // Import and use HMACSHA512 including PasswordSalt
-        // using var hmac = new HMACSHA512(appUser.PasswordSalt!);
+        // Import and use HMACSHA512 including PasswordSalt
+        using var hmac = new HMACSHA512(appUser.PasswordSalt!);
 
         // // Convert userInputPassword to Hash
-        // var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password));
+        var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password));
 
         // // Check if password is correct and matched with Database PasswordHash. 
-        // if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComputedHash))
-        // {
-        //     if (appUser.Id is not null) // merge it!
-        //     {
-        //         return new UserDto(
-        //             Id: appUser.Id,
-        //             Email: appUser.Email
-        //         );
-        //     }
-        // }
+        if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComputedHash))
+        {
+            if (appUser.Id is not null) // merge it!
+            {
+                return new UserDto(
+                    Id: appUser.Id,
+                    Email: appUser.Email
+                );
+            }
+        }
 
         return null;
     }
