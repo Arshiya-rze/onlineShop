@@ -20,11 +20,11 @@ export class RegisterComponent {
 
   register(): void {
 
-    // let user: RegisterUser = {
-    //   email: EmailCtrl.value,
-    //   password: 'aaaaaaa',
-    //   confirmPassword: 'aaaaaaa'
-    // }
+    let user: RegisterUser = {
+      email: 'a3@a.com',
+      password: 'aaaaaaa',
+      confirmPassword: 'aaaaaaa'
+    }
 
     this.accountService.registerUser(user).subscribe({
       next: user => console.log(user)
