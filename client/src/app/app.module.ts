@@ -9,12 +9,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 // // Form
-// import { FormsModule } from '@angular/forms';
-// import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // // Material
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
@@ -43,12 +43,12 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule,
 
     // // Form
-    // FormsModule,
-    // ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     // // Material
-    // MatFormFieldModule,
-    // MatInputModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
   ],
   providers: [],
