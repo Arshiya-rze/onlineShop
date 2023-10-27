@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
+// [Authorize] // AllowAnonymous can NOT be here!
 public class UserController : BaseApiController // move Using to GlobalUsing.cs
 {
     private readonly IUserRepository _userRepository;
 
-    #region Db and Token Settings
+    #region Token Settings
     // private readonly ITokenService _tokenService; // save user credential as a token
 
     // constructor - dependency injection
@@ -14,6 +17,7 @@ public class UserController : BaseApiController // move Using to GlobalUsing.cs
     }
     #endregion
 
+    // [AllowAnonymous]
     // MAKE THESE MATHODS ASYNC
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
@@ -26,15 +30,16 @@ public class UserController : BaseApiController // move Using to GlobalUsing.cs
         return userDtos;
     }
 
-    [HttpGet("get-by-id/{userId}")]
-    public async Task<ActionResult<AppUser>> GetById(string userId, CancellationToken cancellationToken)
-    {
-        // AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
+    // [Authorize]
+    // [HttpGet("get-by-id/{userId}")]
+    // public async Task<ActionResult<UserDto>> GetById(string userId, CancellationToken cancellationToken)
+    // {
+    //     UserDto? userDto = await _userRepository.GetByIdAsync(userId, cancellationToken);
 
-        // if(appUser is null)
-        //     return NotFound("No user was found");
+    //     if (userDto is null)
+    //         return NotFound("No user was found");
 
-        // return appUser;
-        return null;
-    }
+
+    //     return userDto;
+    // }
 }

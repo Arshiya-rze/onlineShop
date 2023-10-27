@@ -1,6 +1,3 @@
-// using System.Security.Cryptography;
-// using System.Text;
-
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,14 +7,16 @@ public class AccountRepository : IAccountRepository
 {
     private const string _collectionName = "users";
     private readonly IMongoCollection<AppUser>? _collection;
+    private readonly ITokenService _tokenService; // save user credential as a token
 
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
+        _tokenService = tokenService;
     }
 
-    public async Task<UserDto?> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
         // check if user/email already exists
         bool doesAccountExist = await _collection.Find<AppUser>(user =>
@@ -41,8 +40,9 @@ public class AccountRepository : IAccountRepository
 
         if (appUser.Id is not null)
         {
-            UserDto userDto = new UserDto(
+            LoggedInDto userDto = new LoggedInDto(
                 Id: appUser.Id,
+                Token: _tokenService.CreateToken(appUser),
                 Email: appUser.Email // amir@gmail.com
             );
 
@@ -52,14 +52,13 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-    public async Task<UserDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user =>
             user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
             return null;
-
 
         // Import and use HMACSHA512 including PasswordSalt
         using var hmac = new HMACSHA512(appUser.PasswordSalt!);
@@ -72,8 +71,9 @@ public class AccountRepository : IAccountRepository
         {
             if (appUser.Id is not null) // merge it!
             {
-                return new UserDto(
+                return new LoggedInDto(
                     Id: appUser.Id,
+                    Token: _tokenService.CreateToken(appUser),
                     Email: appUser.Email
                 );
             }
