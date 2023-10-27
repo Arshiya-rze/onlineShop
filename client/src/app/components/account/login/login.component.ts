@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginUser } from 'src/app/models/login-user.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +9,43 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private userService: UserService) {}
-  
+  apiErrorMessage: string | undefined;
+
+  constructor(private accountService: AccountService, private fb: FormBuilder) { }
+
+  //#region FormGroup
+  loginFg: FormGroup = this.fb.group({
+    emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(20)]]
+  })
+
+  get EmailCtrl(): FormControl {
+    return this.loginFg.get('emailCtrl') as FormControl;
+  }
+
+  get PasswordCtrl(): FormControl {
+    return this.loginFg.get('passwordCtrl') as FormControl;
+  }
+  //#endregion FormGroup
+
+  //#region Methods
+  login(): void {
+    this.apiErrorMessage = undefined;
+
+    let user: LoginUser = {
+      email: this.EmailCtrl.value,
+      password: this.PasswordCtrl.value
+    }
+
+    this.accountService.loginUser(user).subscribe({
+      next: user => console.log(user),
+      error: err => this.apiErrorMessage = err.error
+      // error: err => console.log(err.error)
+    })
+  }
+
+  getState(): void {
+    console.log(this.loginFg);
+  }
+  //#endregion Methods
 }
