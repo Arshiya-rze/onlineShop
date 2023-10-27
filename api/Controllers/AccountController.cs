@@ -24,12 +24,12 @@ public class AccountController : BaseApiController
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
+    public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
     {
         if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
             return BadRequest("Passwords don't match!"); // is it correct? What does it do?
 
-        UserDto? userDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
+        LoggedInDto? userDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
 
         if (userDto is null)
             return BadRequest("Email/Username is taken.");
@@ -44,9 +44,9 @@ public class AccountController : BaseApiController
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
     [HttpPost("login")] // End point
-    public async Task<ActionResult<UserDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
     {
-        UserDto? userDto = await _accountRepository.LoginAsync(userInput, cancellationToken);
+        LoggedInDto? userDto = await _accountRepository.LoginAsync(userInput, cancellationToken);
 
         if (userDto is null)
             return Unauthorized("Wrong username or password");
