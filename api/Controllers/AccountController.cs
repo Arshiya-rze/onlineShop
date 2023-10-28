@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
 public class AccountController : BaseApiController
 {
-    #region Token Settings
+    #region Constructor Section
 
     // private readonly ITokenService _tokenService; // save user credential as a token
     private readonly IAccountRepository _accountRepository;
@@ -29,12 +31,12 @@ public class AccountController : BaseApiController
         if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
             return BadRequest("Passwords don't match!"); // is it correct? What does it do?
 
-        LoggedInDto? userDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
+        LoggedInDto? loggedInDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
 
-        if (userDto is null)
+        if (loggedInDto is null)
             return BadRequest("Email/Username is taken.");
 
-        return userDto;
+        return loggedInDto;
     }
 
     /// <summary>

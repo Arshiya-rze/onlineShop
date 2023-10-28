@@ -40,13 +40,13 @@ public class AccountRepository : IAccountRepository
 
         if (appUser.Id is not null)
         {
-            LoggedInDto userDto = new LoggedInDto(
+            LoggedInDto loggedInDto = new LoggedInDto(
                 Id: appUser.Id,
                 Token: _tokenService.CreateToken(appUser),
                 Email: appUser.Email // amir@gmail.com
             );
 
-            return userDto;
+            return loggedInDto;
         }
 
         return null;

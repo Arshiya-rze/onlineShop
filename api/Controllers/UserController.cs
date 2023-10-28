@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers;
 
-// [Authorize] // AllowAnonymous can NOT be here!
+[Authorize] // AllowAnonymous can NOT be here!
 public class UserController : BaseApiController // move Using to GlobalUsing.cs
 {
     private readonly IUserRepository _userRepository;
 
-    #region Token Settings
+    #region Constructor Section
     // private readonly ITokenService _tokenService; // save user credential as a token
 
     // constructor - dependency injection
