@@ -30,16 +30,16 @@ public class UserController : BaseApiController // move Using to GlobalUsing.cs
         return userDtos;
     }
 
-    // [Authorize]
-    // [HttpGet("get-by-id/{userId}")]
-    // public async Task<ActionResult<UserDto>> GetById(string userId, CancellationToken cancellationToken)
-    // {
-    //     UserDto? userDto = await _userRepository.GetByIdAsync(userId, cancellationToken);
+    [Authorize]
+    [HttpGet("get-by-id/{userId}")]
+    public async Task<ActionResult<UserDto>> GetById(string userId, CancellationToken cancellationToken)
+    {
+        UserDto? userDto = await _userRepository.GetByIdAsync(userId, cancellationToken);
 
-    //     if (userDto is null)
-    //         return NotFound("No user was found");
+        if (userDto is null)
+            return NotFound("No user was found");
 
 
-    //     return userDto;
-    // }
+        return userDto;
+    }
 }

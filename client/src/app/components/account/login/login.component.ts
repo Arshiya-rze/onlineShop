@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginUser } from 'src/app/models/login-user.model';
 import { AccountService } from 'src/app/services/account.service';
 
@@ -11,7 +12,7 @@ import { AccountService } from 'src/app/services/account.service';
 export class LoginComponent {
   apiErrorMessage: string | undefined;
 
-  constructor(private accountService: AccountService, private fb: FormBuilder) { }
+  constructor(private accountService: AccountService, private fb: FormBuilder, private router: Router) { }
 
   //#region FormGroup
   loginFg: FormGroup = this.fb.group({
@@ -37,8 +38,12 @@ export class LoginComponent {
       password: this.PasswordCtrl.value
     }
 
+    //return: Observable<LoggedInUser>
     this.accountService.loginUser(user).subscribe({
-      next: user => console.log(user),
+      next: user => {
+        console.log(user);
+        this.router.navigateByUrl('/');
+      },
       error: err => this.apiErrorMessage = err.error
       // error: err => console.log(err.error)
     })

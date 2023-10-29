@@ -1,18 +1,19 @@
-// mat-toolbar {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-//     .left {
-//         .brand {
-//             display: flex;
-//             align-items: center;
-//             text-decoration: none;
-//             color: white;
-//         }
-//     }
+    .left {
+        .brand {
+            display: flex;
+            // flex-direction: row;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+    }
 
-//     .right {
+    // .right {
 
-//     }
-// }
+    // }
+}

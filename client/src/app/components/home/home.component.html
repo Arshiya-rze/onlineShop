@@ -1,12 +1,14 @@
 <div class="showUsers">
-    <button mat-fab (click)="showAllUsers()" mat-fab color="primary">Show Users</button>
-  
-    <h1 *ngFor="let user of allUsers">
-      {{user.id}}
-      <br>
-      {{user.email}}
-    </h1>
-  </div>
+  <button mat-fab (click)="showAllUsers()" mat-fab color="primary">Show Users</button>
 
-<button mat-raised-button color="warn" routerLink="register">Register</button>
-<button mat-raised-button color="primary" routerLink="login">Login</button>
+  <h1 *ngFor="let user of allUsers">
+    {{user.id}}
+    <br>
+    {{user.email}}
+  </h1>
+</div>
+
+<div *ngIf="!user">
+  <button mat-raised-button color="warn" routerLink="register">Register</button>
+  <button mat-raised-button color="primary" routerLink="login">Login</button>
+</div>

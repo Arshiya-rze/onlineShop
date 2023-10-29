@@ -16,8 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-// import {MatToolbarModule} from '@angular/material/toolbar'; 
-// import {MatIconModule} from '@angular/material/icon'; 
+import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatIconModule} from '@angular/material/icon'; 
 
 // Components
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -54,8 +54,8 @@ import { HomeComponent } from './components/home/home.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    // MatToolbarModule,
-    // MatIconModule
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

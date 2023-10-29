@@ -10,9 +10,13 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class NavbarComponent {
   // user$: Observable<User | null> | undefined;
-  // user: User | null | undefined;
+  user: User | null | undefined;
 
-  // constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService) {
+    accountService.currentUser$.subscribe({
+      next: response => this.user = response
+    })
+   }
 
   // ngOnInit(): void {
   //   this.accountService.currentUser$.subscribe({

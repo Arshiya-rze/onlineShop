@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { AccountService } from 'src/app/services/account.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,13 +10,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent {
   allUsers: User[] | undefined;
+  user: User | null | undefined;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, accountService: AccountService) {
+    accountService.currentUser$.subscribe({
+      next: res => this.user = res
+    })
+  }
 
   showAllUsers() {
     this.userService.getAllUsers().subscribe({
-        next: users => this.allUsers = users,
-        error: err => console.log(err)
-      });
+      next: users => this.allUsers = users,
+      error: err => console.log(err)
+    });
   }
 }

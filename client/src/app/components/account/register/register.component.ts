@@ -48,6 +48,7 @@ export class RegisterComponent {
         confirmPassword: this.ConfirmPasswordCtrl.value
       }
 
+      // reutrn: Observable<User>
       this.accountService.registerUser(user).subscribe({
         next: user => console.log(user),
         error: err => this.apiErrorMessage = err.error // it might be a list of errors so using a string varialbe is not good!

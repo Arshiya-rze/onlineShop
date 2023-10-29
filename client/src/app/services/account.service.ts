@@ -9,25 +9,25 @@ import { LoginUser } from '../models/login-user.model';
   providedIn: 'root'
 })
 export class AccountService {
-  // private currentUserSource = new BehaviorSubject<User | null>(null);
-  // currentUser$ = this.currentUserSource.asObservable();
+  private currentUserSource = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSource.asObservable(); 
 
   constructor(private http: HttpClient) { }
 
   registerUser(userInput: RegisterUser): Observable<User> {
     return this.http.post<User>('https://localhost:5001/api/account/register', userInput).pipe(
-      map(user => {
-        // this.currentUserSource.next(user);
-        return user;
+      map(userResponse => {
+        this.currentUserSource.next(userResponse);
+        return userResponse;
       })
     );
   }
 
   loginUser(userInput: LoginUser): Observable<User>{
     return this.http.post<User>('https://localhost:5001/api/account/login', userInput).pipe(
-      map(user => {
-        // this.currentUserSource.next(user);
-        return user;
+      map(userResponse => {
+        this.currentUserSource.next(userResponse);
+        return userResponse;
       })
     );
   }
