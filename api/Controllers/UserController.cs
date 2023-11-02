@@ -17,8 +17,7 @@ public class UserController : BaseApiController // move Using to GlobalUsing.cs
     }
     #endregion
 
-    // [AllowAnonymous]
-    // MAKE THESE MATHODS ASYNC
+    // [AllowAnonymous] // if Auth is NOT needed
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
     {
