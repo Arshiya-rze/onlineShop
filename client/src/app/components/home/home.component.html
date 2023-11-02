@@ -9,6 +9,18 @@
 </div>
 
 <div *ngIf="!user">
-  <button mat-raised-button color="warn" routerLink="register">Register</button>
-  <button mat-raised-button color="primary" routerLink="login">Login</button>
+  <button routerLink="register" mat-raised-button color="accent">Register</button>
+  <button routerLink="login" mat-raised-button color="primary">Login</button>
 </div>
+
+<!-- without ng-template -->
+<!-- <button *ngIf="user" (click)="logout()" mat-raised-button color="warn">Logout</button>  -->
+
+<!-- with ng-template -->
+<!-- <div *ngIf="!user; else logoutSection">
+  <button routerLink="register" mat-raised-button color="accent">Register</button>
+  <button routerLink="login" mat-raised-button color="primary">Login</button>
+</div>
+<ng-template #logoutSection>
+  <button (click)="logout()" mat-raised-button color="warn">Logout</button>
+</ng-template> -->

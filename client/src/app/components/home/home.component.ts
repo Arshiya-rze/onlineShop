@@ -12,7 +12,7 @@ export class HomeComponent {
   allUsers: User[] | undefined;
   user: User | null | undefined;
 
-  constructor(private userService: UserService, accountService: AccountService) {
+  constructor(private userService: UserService, private accountService: AccountService) {
     accountService.currentUser$.subscribe({
       next: res => this.user = res
     })
@@ -24,4 +24,8 @@ export class HomeComponent {
       error: err => console.log(err)
     });
   }
+
+  // logout(): void {
+  //   this.accountService.logoutUser();
+  // }
 }
