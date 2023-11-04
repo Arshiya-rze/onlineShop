@@ -14,42 +14,45 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(userInput: RegisterUser): Observable<User> {
+  registerUser(userInput: RegisterUser): Observable<User | null> {
     return this.http.post<User>('https://localhost:5001/api/account/register', userInput).pipe(
       map(userResponse => {
-        // if (userResponse) {
-          this.currentUserSource.next(userResponse);
-          // this.setCurrentUser(userResponse);
+        if (userResponse) {
+          this.setCurrentUser(userResponse);
 
           return userResponse;
-        // }
+        } // false
 
-        // return null;
+        return null;
       })
     );
   }
 
-  loginUser(userInput: LoginUser): Observable<User> {
+  loginUser(userInput: LoginUser): Observable<User | null> {
     return this.http.post<User>('https://localhost:5001/api/account/login', userInput).pipe(
       map(userResponse => {
-        // if (userResponse) {
-          this.currentUserSource.next(userResponse);
-          // this.setCurrentUser(userResponse);
+        if (userResponse) {
+          this.setCurrentUser(userResponse);
 
           return userResponse;
-        // }
+        }
 
-        // return null;
+        return null;
       })
     );
   }
 
-  // setCurrentUser(user: User): void {
-  //   localStorage.setItem('user', JSON.stringify(user));
+  setCurrentUser(user: User): void {
+    this.currentUserSource.next(user);
 
-  //   this.currentUserSource.next(user);
-  // }
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
+  logoutUser(): void {
+    this.currentUserSource.next(null);
+
+    localStorage.removeItem('user');
+  }
 
   // logoutUser(): void {
   //   localStorage.removeItem('user');

@@ -14,16 +14,17 @@ export class AppComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
-    // this.getLocalStorageCurrentValues();
+    this.getLocalStorageCurrentValues();
   }
 
-  // getLocalStorageCurrentValues(): void {
-  //   const userString: string | null = localStorage.getItem('user');
 
-  //   if (userString) {
-  //     const user: User = JSON.parse(userString); // convert string to JSON before sending to method
+  getLocalStorageCurrentValues(): void {
+    const userString: string | null = localStorage.getItem('user');
 
-  //     this.accountService.setCurrentUser(user);
-  //   }
-  // }
+    if (userString) {
+      const user: User = JSON.parse(userString); // convert string to JSON before sending to method
+
+      this.accountService.setCurrentUser(user);
+    }
+  }
 }

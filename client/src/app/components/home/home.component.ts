@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserService } from 'src/app/services/user.service';
@@ -8,12 +8,14 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   allUsers: User[] | undefined;
   user: User | null | undefined;
 
-  constructor(private userService: UserService, private accountService: AccountService) {
-    accountService.currentUser$.subscribe({
+  constructor(private userService: UserService, private accountService: AccountService) { }
+
+  ngOnInit(): void {
+    this.accountService.currentUser$.subscribe({
       next: res => this.user = res
     })
   }
@@ -25,7 +27,7 @@ export class HomeComponent {
     });
   }
 
-  // logout(): void {
-  //   this.accountService.logoutUser();
-  // }
+  logout(): void {
+    this.accountService.logoutUser();
+  }
 }

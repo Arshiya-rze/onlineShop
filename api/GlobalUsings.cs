@@ -11,3 +11,8 @@ global using api.Interfaces;
 global using api.Repositories;
 global using Microsoft.Extensions.Options;
 global using api.Controllers.Helpers;
+global using System.Text;
+global using api.Extensions;
+global using api.Services;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
