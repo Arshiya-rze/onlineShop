@@ -8,13 +8,12 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './modules/material.module';
 import { ComponentModule } from './modules/component.module';
 
-
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, // do NOT move it
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, // do NOT move it
     AppRoutingModule,
     BrowserAnimationsModule,
 

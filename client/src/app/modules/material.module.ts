@@ -5,9 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatMenuModule } from '@angular/material/menu';
-// import { MatListModule } from '@angular/material/list';
-// import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -20,9 +20,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    // MatMenuModule,
-    // MatListModule,
-    // MatDividerModule
+    MatMenuModule,
+    MatListModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

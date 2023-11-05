@@ -1,7 +1,5 @@
 <!-- TODO Part 1: Show email only -->
-
-
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
     <section class="left">
         <a routerLink="/" class="brand">
             <mat-icon>eco</mat-icon>
@@ -11,7 +9,7 @@
     <section class="right">
         <p *ngIf="user">{{user.email}}</p>
     </section>
-</mat-toolbar>
+</mat-toolbar> -->
 
 
 <!-- TODO  Part 2: Show Logout instead of email-->
@@ -32,12 +30,12 @@
             <button routerLink="login" mat-raised-button color="accent">Login</button>
         </ng-template>
     </section>
-</mat-toolbar>
- -->
+</mat-toolbar> -->
+
 
 <!-- TODO Part 3:  Show menu and place Login inside it-->
 
-<!-- 
+
 <mat-toolbar color="primary">
     <section class="left">
         <a routerLink="/" class="brand">
@@ -46,10 +44,11 @@
         </a>
     </section>
     <section class="right">
-        <!~~ if logged-in: show appMenu
-            else: show signup/login ~~>
-        <button *ngIf="user; else loginRegisterSection" [mat-menu-trigger-for]="appMenu" class="menu-button" mat-mini-fab>
-            <span>{{user.email[0] | titlecase}}</span> <!~~ Use span to not have padding/margin ~~>
+        <!-- if logged-in: show appMenu
+            else: show signup/login -->
+        <button *ngIf="user; else loginRegisterSection" [mat-menu-trigger-for]="appMenu" class="menu-button"
+            mat-mini-fab>
+            <span>{{user.email[0] | titlecase}}</span> <!-- Use span to not have padding/margin -->
         </button>
         <ng-template #loginRegisterSection>
             <button routerLink="register" mat-raised-button color="accent">Register</button>
@@ -57,7 +56,7 @@
         </ng-template>
 
         <mat-menu #appMenu [class]="'mat-menu'">
-            <!~~ profile ~~>
+            <!-- profile -->
             <div *ngIf="user" class="user-info">
                 <div class="profile-image">
                     <p>
@@ -65,15 +64,15 @@
                     </p>
                 </div>
                 <div>
-                    <p>{{user.id}}</p> <!~~ We will place KnownAs here ~~>
+                    <p>{{user.id}}</p> <!-- We will place KnownAs here -->
                     <p class="email">{{user.email}}</p>
                 </div>
             </div>
-            <!~~ navigation ~~>
+            <!-- navigation -->
             <mat-divider></mat-divider>
             <mat-list>
                 <mat-list-item>
-                    <div routerLink="member/edit" mat-button class="menu-items">
+                    <div routerLink="/" mat-button class="menu-items">
                         <mat-icon>edit_note</mat-icon>
                         Edit Profile
                     </div>
@@ -98,4 +97,4 @@
             </div>
         </mat-menu>
     </section>
-</mat-toolbar> -->
+</mat-toolbar>

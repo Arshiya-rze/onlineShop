@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  // logout(): void {
-  //   this.accountService.logoutUser();
-  // }
+  logout(): void {
+    this.accountService.logoutUser();
+  }
 }

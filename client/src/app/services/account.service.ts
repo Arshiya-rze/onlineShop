@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../models/user.model';
 import { RegisterUser } from '../models/register-user.model';
 import { LoginUser } from '../models/login-user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,15 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   registerUser(userInput: RegisterUser): Observable<User | null> {
     return this.http.post<User>('https://localhost:5001/api/account/register', userInput).pipe(
       map(userResponse => {
         if (userResponse) {
           this.setCurrentUser(userResponse);
+
+          this.router.navigateByUrl('/');
 
           return userResponse;
         } // false
@@ -52,13 +55,7 @@ export class AccountService {
     this.currentUserSource.next(null);
 
     localStorage.removeItem('user');
+
+    this.router.navigateByUrl('/login');
   }
-
-  // logoutUser(): void {
-  //   localStorage.removeItem('user');
-
-  //   this.currentUserSource.next(null);
-  //   this.router.navigate(['/login'])
-  // }
-
 }
