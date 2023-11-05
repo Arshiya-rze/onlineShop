@@ -16,3 +16,15 @@
 <ng-template #logoutSection>
   <button (click)="logout()" mat-raised-button color="warn">Logout</button>
 </ng-template>
+
+<!-- TODO Switch Login/Register with Logout -->
+<!-- 
+<div *ngIf="user; else loginRegisterSection">
+  <button (click)="logout()" mat-raised-button color="warn">Logout</button>
+</div>
+
+<ng-template #loginRegisterSection>
+  <button routerLink="register" mat-raised-button color="accent">Register</button>
+  <button routerLink="login" mat-raised-button color="primary">Login</button>
+</ng-template> 
+-->
