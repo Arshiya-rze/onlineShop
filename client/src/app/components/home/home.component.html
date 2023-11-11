@@ -1,5 +1,5 @@
 <div class="showUsers">
-  <button mat-fab (click)="showAllUsers()" mat-fab color="primary">Show Users</button>
+  <button (click)="showAllUsers()" mat-fab color="primary">Show Users</button>
 
   <h1 *ngFor="let user of allUsers">
     {{user.id}}
