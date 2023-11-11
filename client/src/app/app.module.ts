@@ -23,7 +23,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     MaterialModule
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

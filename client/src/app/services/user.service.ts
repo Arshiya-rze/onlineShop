@@ -12,23 +12,42 @@ export class UserService {
   constructor(private http: HttpClient, private accountService: AccountService) { }
 
   // Observable / Promise
-  getAllUsers(): Observable<User[]> {
+  getAllUsers(): Observable<User[] | null> {
+
+    //#region Create requestOptions like headers for each and every http-request
     // let requestOptions; // Type is not declared since options can vary. see this page
-    // // https://angular.io/api/common/http/HttpClient
+    // https://angular.io/api/common/http/HttpClient
 
     // this.accountService.currentUser$.pipe(take(1)).subscribe({
-    //   next: (user: User | null) => {
-    //     if (user) {
+    //   next: (currentUser: User | null) => {
+    //     if (currentUser) {
     //       requestOptions = {
-    //         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
+    //         headers: new HttpHeaders({ 'Authorization': `Bearer ${currentUser.token}` })
     //       }
     //     }
     //   }
     // });
 
+    // return this.http.get<User[]>('https://localhost:5001/api/user', requestOptions).pipe(
+    //#endregion
+
     return this.http.get<User[]>('https://localhost:5001/api/user').pipe(
-      map(users => {
-        return users;
+      map((users: User[]) => {
+        if (users)
+          return users;
+
+        return null;
+      })
+    )
+  }
+
+  getUserById(): Observable<User | null> {
+    return this.http.get<User>('https://localhost:5001/api/user/10923849128437912').pipe(
+      map((user: User | null) => {
+        if (user)
+          return user;
+
+        return null;
       })
     )
   }
