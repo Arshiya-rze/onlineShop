@@ -1,0 +1,45 @@
+#form-register{
+    // background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100%;
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.377);
+        width: 90%;
+        border-radius: 5px;
+        box-shadow: 0 0 15px black;
+        background-color: #fff;
+        .mat-form-field{
+            // background-color: red;   
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            .label-input{
+                color: black;
+                background-color: blue;
+            }
+            input{
+                background-color: #fff;    
+                height: 45px;
+                border-radius: 5px;
+                border: 1px solid black;
+                width: 100%;
+            }
+        }
+    }
+}
+.div-btn{
+    // background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

@@ -1,20 +1,15 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-
 namespace api.Services;
+
+//version 7.0.4 Baraye Asp.NetCore ?
+
 public class TokenService : ITokenService
 {
-    //TODO: A token authorizes all users. Should each user work with one token only?
-
-    private readonly SymmetricSecurityKey? _key; // set it as nullable by ? mark
+    private readonly SymmetricSecurityKey? _key;
 
     public TokenService(IConfiguration config)
     {
-        string? tokenValue = config["TokenKey"];
+        string? tokenValue = config["Tokenkey"];
 
-        // throw exception if tokenValue is null
         _ = tokenValue ?? throw new ArgumentNullException("tokenValue cannot be null", nameof(tokenValue));
 
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue!));
@@ -42,5 +37,5 @@ public class TokenService : ITokenService
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(token);
-    }
+    }    
 }

@@ -67,7 +67,7 @@
           "options": {
             "sslCert": "./ssl/server.crt",
             "sslKey": "./ssl/server.key",
-            "ssl": true
+            "ssl": false
           },
           "configurations": {
             "production": {
@@ -109,6 +109,6 @@
     }
   },
   "cli": {
-    "analytics": "ec402ada-b162-4dbc-befc-6147ceb1a039"
+    "analytics": "091b6119-5563-46d7-977d-e3875d002112"
   }
 }

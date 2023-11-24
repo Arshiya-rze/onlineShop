@@ -1,0 +1,41 @@
+<form [formGroup]="registerFg" (ngSubmit)="registerFg.valid && register()" id="form-register">
+    <div class="content">
+      <h1>Create Account</h1>
+
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" formControlName="emailCtrl" label="Email" placeholder="Your Email" matInput>
+        <mat-hint>Your email will be used as your username</mat-hint>
+        <mat-error *ngIf="EmailCtrl.hasError('required')">This field is required.</mat-error>
+        <mat-error *ngIf="EmailCtrl.hasError('pattern')">Enter a valid email.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label class="label-input">Password</mat-label>
+        <input type="password" formControlName="passwordCtrl" label="Password" placeholder="Your Password" matInput>
+        <mat-error *ngIf="PasswordCtrl.hasError('required')">This field is required.</mat-error>
+        <mat-error *ngIf="PasswordCtrl.hasError('minLength')">It's too short. Min: 7 characters.</mat-error>
+        <mat-error *ngIf="PasswordCtrl.hasError('maxLength')">It's too long. Max: 20 characters.</mat-error>
+      </mat-form-field>
+  
+      <!-- <mat-form-field class="mat-form-field"> -->
+        <mat-label>Confirm password</mat-label>
+        <input type="password" formControlName="confirmPasswordCtrl" label="Confirm Password" placeholder="Re-enter password">
+        <mat-error *ngIf="ConfirmPasswordCtrl.hasError('required')">This field is required.</mat-error>
+        <mat-error *ngIf="ConfirmPasswordCtrl.hasError('minLength')">It's too short. Min: 7 characters.</mat-error>
+        <mat-error *ngIf="ConfirmPasswordCtrl.hasError('maxLength')">It's too long. Max: 20 characters.</mat-error>
+      <!-- </mat-form-field> -->
+      
+  
+      <button type="submit" [disabled]="registerFg.invalid" mat-raised-button color="primary">Register</button>
+  
+      <!-- Other Errors -->
+      <p *ngIf="passwordsNotMatch">Passwords don't match!</p>
+      <p *ngIf="apiErrorMessage">{{apiErrorMessage}}</p>  
+    </div>
+  
+</form>
+  
+<div class="div-btn">
+    <button (click)="getState()">State</button>
+</div>

@@ -1,33 +1,38 @@
-using System.Security.Cryptography;
-using System.Text;
+using api.Dtos;
+using api.Models;
+using api.Settings;
+using MongoDB.Driver;
 
 namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
+
+    //inject be MongoDB / Token
     private const string _collectionName = "users";
     private readonly IMongoCollection<AppUser>? _collection;
-    private readonly ITokenService _tokenService; // save user credential as a token
+    private readonly ITokenService _tokenService;
 
     public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
-        var database = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = database.GetCollection<AppUser>(_collectionName);
+        var dataBase = client.GetDatabase(dbSettings.DatabaseName);
+        _collection = dataBase.GetCollection<AppUser>(_collectionName);
         _tokenService = tokenService;
     }
 
     public async Task<LoggedInDto?> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        // check if user/email already exists
-        bool doesAccountExist = await _collection.Find<AppUser>(user =>
-            user.Email == userInput.Email.ToLower().Trim()).AnyAsync(cancellationToken);
+        bool doasAccountExit = await _collection.Find<AppUser>(user =>
+        user.Email == userInput.Email.ToLower().Trim()).AnyAsync(cancellationToken);
 
-        if (doesAccountExist)
+        if (doasAccountExit)
+        {
             return null;
+        }
 
-        // manually dispose HMACSHA512 after being done
         using var hmac = new HMACSHA512();
 
+        //if account does not exist create new one
         AppUser appUser = new AppUser(
             Id: null,
             Email: userInput.Email.ToLower().Trim(),
@@ -36,14 +41,15 @@ public class AccountRepository : IAccountRepository
         );
 
         if (_collection is not null)
+        {
             await _collection.InsertOneAsync(appUser, null, cancellationToken);
-
+        }
         if (appUser.Id is not null)
         {
             LoggedInDto loggedInDto = new LoggedInDto(
                 Id: appUser.Id,
                 Token: _tokenService.CreateToken(appUser),
-                Email: appUser.Email // amir@gmail.com
+                Email: appUser.Email
             );
 
             return loggedInDto;
@@ -55,30 +61,29 @@ public class AccountRepository : IAccountRepository
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user =>
-            user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
+        user.Email == userInput.Email.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
+        {
             return null;
+        }
 
-        // Import and use HMACSHA512 including PasswordSalt
         using var hmac = new HMACSHA512(appUser.PasswordSalt!);
 
-        // // Convert userInputPassword to Hash
-        var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password));
+        var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password));
 
-        // // Check if password is correct and matched with Database PasswordHash. 
-        if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComputedHash))
+        if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComputeHash))
         {
-            if (appUser.Id is not null) // merge it!
+            if (appUser.Id is not null)
             {
                 return new LoggedInDto(
                     Id: appUser.Id,
-                    Token: _tokenService.CreateToken(appUser),
-                    Email: appUser.Email
+                    Email: appUser.Email,
+                    Token: _tokenService.CreateToken(appUser)
                 );
             }
         }
 
         return null;
-    }
+    }   
 }

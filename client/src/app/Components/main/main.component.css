@@ -1,0 +1,35 @@
+main {
+  background-color: green;
+  width: 100%;
+  position: absolute;
+}
+main .div-slider {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 20px;
+}
+main .div-slider #btn-slider1 {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+main .div-slider #btn-slider2 {
+  background-color: blue;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+main .div-js {
+  background-color: yellow;
+  height: 300px;
+  width: 200px;
+  position: relative;
+  top: -170px;
+  right: -350px;
+}/*# sourceMappingURL=main.component.css.map */

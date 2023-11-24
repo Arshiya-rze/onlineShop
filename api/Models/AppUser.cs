@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace api.Models;
 
-public record AppUser(
+public record AppUser
+(
     [property: BsonId, BsonRepresentation(BsonType.ObjectId)] string? Id,
-    string Email,
-    byte[] PasswordSalt, // array
+    [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage ="Bad email format")] string Email,
+    byte[] PasswordSalt,
     byte[] PasswordHash
 );
-
-// PasswordHash.userInput.PasswordHash

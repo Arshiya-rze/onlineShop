@@ -1,0 +1,58 @@
+<mat-toolbar>
+  <section class="section-left">
+    <img src="../assets/Images/logo-gmkalborz.png" class="icon-header"/>
+  </section>
+
+  <section class="section-right">
+    <button *ngIf="user; else loginRegisterSection" [mat-menu-trigger-for]="appMenu" class="menu-btn" mat-mini-fab>
+      <span>{{user.email[0] | titlecase}}</span>
+    </button>
+
+    <ng-template #loginRegisterSection>
+      <button routerLink="/register" mat-raised-button color="accent">Register</button>
+      <button routerLink="/login" mat-raised-button color="accent">Login</button>
+    </ng-template>
+
+    <mat-menu #appMenu>
+      <!-- profile -->
+      <div *ngIf="user" class="user-info">
+        <div class="profile-image">
+          <p>{{user.email[0] | titlecase}}</p>
+        </div>
+
+        <div class="user-id">
+          <p>{{user.id}}</p>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+      <mat-list class="list-items">
+        <mat-list-item>
+          <div routerLink="/" mat-button class="menu-items">
+            <mat-icon>edit_note</mat-icon>
+            <p>Edit Profile</p>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div routerLink="/" mat-button class="menu-items">
+            <mat-icon>flaky</mat-icon>
+            <p>All Members</p>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div routerLink="/" mat-button class="menu-items">
+            <mat-icon>assignment_returned</mat-icon>
+            <p>Messages</p>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <mat-divider></mat-divider>
+      <div class="logOut">
+        <button mat-raised-button (click)="logOut()"> LogOut</button>
+      </div>
+    </mat-menu>
+  </section>
+</mat-toolbar>

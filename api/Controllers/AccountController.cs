@@ -1,60 +1,51 @@
-using Microsoft.AspNetCore.Authorization;
+using api.Dtos;
 
-namespace api.Controllers;
+namespace api.Controllers;  
 
+// public class AccountController(IAccountRepository _accountRepository) : BaseApiController  Dotnet8 inject in all project
 public class AccountController : BaseApiController
 {
-    #region Constructor Section
-
-    // private readonly ITokenService _tokenService; // save user credential as a token
+    //first inject be repositroi
+    //seccond create register and login
+    
+    #region inject repository
     private readonly IAccountRepository _accountRepository;
 
-    // constructor - dependency injection
     public AccountController(IAccountRepository accountRepository)
     {
         _accountRepository = accountRepository;
-
-        // _tokenService = tokenService;
     }
     #endregion
 
-    /// <summary>
-    /// Create accounts
-    /// Concurrency => async is used
-    /// </summary>
-    /// <param name="userInput"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>UserDto</returns>
     [HttpPost("register")]
-    public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
+    public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
-            return BadRequest("Passwords don't match!"); // is it correct? What does it do?
+        if (userInput.Password != userInput.ConfirmPassword)
+        {
+            return BadRequest("Passwords dont match!");
+        }
 
-        LoggedInDto? loggedInDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
+        LoggedInDto? loggedInDto = await _accountRepository.CreateAsync(userInput, cancellationToken);
 
         if (loggedInDto is null)
-            return BadRequest("Email/Username is taken.");
+        {
+            return BadRequest("Email/UserName is taken!");
+        }
 
         return loggedInDto;
     }
 
-    /// <summary>
-    /// Login accounts
-    /// </summary>
-    /// <param name="userInput"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>UserDto</returns>
-    [HttpPost("login")] // End point
+    [HttpPost("login")]
     public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
-    {
+    {   
         LoggedInDto? userDto = await _accountRepository.LoginAsync(userInput, cancellationToken);
 
         if (userDto is null)
-            return Unauthorized("Wrong username or password");
-
-        return userDto; // successful login
+        {
+            return Unauthorized("wrong email or password");
+        }
+        
+        //succesfull login
+        return userDto;
     }
-
-    // Reset Passsword
 }
