@@ -4,16 +4,16 @@
   </section>
 
   <section class="section-right">
-    <button *ngIf="user; else loginRegisterSection" [mat-menu-trigger-for]="appMenu" class="menu-btn" mat-mini-fab>
+    <button *ngIf="user; else loginRegisterSection" [mat-menu-trigger-for]="appMenu" class="menu-btn">
       <span>{{user.email[0] | titlecase}}</span>
     </button>
 
     <ng-template #loginRegisterSection>
-      <button routerLink="/register" mat-raised-button color="accent">Register</button>
-      <button routerLink="/login" mat-raised-button color="accent">Login</button>
+      <button class="button" routerLink="/register"><p class="p-btn">Register</p></button>
+      <button class="button" routerLink="/login"><p class="p-btn">Login</p></button>
     </ng-template>
 
-    <mat-menu #appMenu>
+    <mat-menu #appMenu id="mat-menu">
       <!-- profile -->
       <div *ngIf="user" class="user-info">
         <div class="profile-image">

@@ -1,5 +1,6 @@
 footer{
-    background-color: rgb(241, 241, 241);
+    // background-color: rgb(241, 241, 241);
+    background-color: #222831;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +8,7 @@ footer{
     margin-top: 30px;
     gap: 15px;
     .div-top{
-        border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        border-bottom: 1px solid rgba(114, 114, 114, 0.801);
         width: 100%;
         display: flex;
         justify-content: flex-end;
@@ -18,6 +19,7 @@ footer{
             font-weight: bold;
             margin-right: 10px;
             font-size: 14px;
+            color: #EEEEEE;
         }
     }
     .div-item1{
@@ -31,13 +33,14 @@ footer{
             margin-right: 10px;
         }
         a{
-            color: black;
+            color: #EEEEEE;
             text-decoration: none;
             font-size: 16px;
         }
         p{
             font-size: 13px;
-            color: rgba(0, 0, 0, 0.411);
+            // color: rgba(0, 0, 0, 0.411);
+            color: #eeeeee98;
         }
     }
     .div-item2{
@@ -46,18 +49,19 @@ footer{
         justify-content: center;
         align-items: flex-end;
         width: 100%;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.281);
+        border-bottom: 1px solid rgba(114, 114, 114, 0.801);
         *{
             margin-right: 15px;
-            color: rgba(0, 0, 0, 0.411);
             font-size: 13px;
+            color: #EEEEEE;
         }
         .p-addres{
             direction: rtl;
             margin-top: -10px;
+            color: #eeeeee98;
         }
         .p-darbare-ma{
-            color: black;
+            color: #EEEEEE;
             font-size: 15px;
             font-weight: bold;
         }
@@ -67,18 +71,18 @@ footer{
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+        border-bottom: 1px solid rgba(114, 114, 114, 0.801);
         *{
             margin-right: 15px;
         }
         .p-tozihat{
             direction: rtl;
-            color: rgba(0, 0, 0, 0.411);
+            color: #eeeeee98;
             font-size: 13px;
         }
         .p-majazi{
             font-size: 15px;
-            color: black;
+            color: #EEEEEE;
             font-weight: bold;
         }
     }
@@ -103,13 +107,13 @@ footer{
         align-items: center;
         width: 100%;
         margin-top: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.308);
+        border-bottom: 1px solid rgba(114, 114, 114, 0.801);
         *{
             margin-right: 15px;
         }
         p{
             font-size: 15px;
-            color: black;
+            color: #EEEEEE;
             font-weight: bold;
         }
     }
@@ -120,13 +124,13 @@ footer{
         align-items: flex-end;
         width: 100%;
         gap: 15px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.247);
+        border-bottom: 1px solid rgba(114, 114, 114, 0.801);
         *{
             margin-right: 15px;
         }
         p{
             font-size: 15px;
-            color: black;
+            color: #EEEEEE;
             font-weight: bold;
         }
         img{

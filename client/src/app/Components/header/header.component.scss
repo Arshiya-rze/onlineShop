@@ -1,5 +1,6 @@
 mat-toolbar{
-    background-color: #ffffff6b; 
+    // background-color: #ffffff6b; 
+    background-color: #222831b7;
     backdrop-filter: blur(3px);
     box-shadow: 0 0 15px black;
     display: flex;
@@ -26,20 +27,24 @@ mat-toolbar{
         align-items: center;
         height: 100%;
         gap: 20px;
-        // mat-menu{
-        //     background-color: red;
-        //     .user-info{
-        //         background-color: green;
-        //         .profile-image{
-        //             background-color: black;
-        //         }
-        //         .user-id{
-        //             background-color: purple;
-        //         }
-        //     }
-        //     .list-items{
-        //         background-color: aqua;
-        //     }
-        // }
+        .button{
+            background-color: #00ADB5;
+            border: none;
+            border-radius: 3px;
+            height: 35px;
+            .p-btn{
+                font-size: 17px;
+                font-weight: bold;
+                // color: #222831;
+                color: #EEEEEE;
+            }
+        }
+        .menu-btn{
+            background-color: #00ADB5;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+        }     
     }
 }

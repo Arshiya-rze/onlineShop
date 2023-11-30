@@ -16,6 +16,15 @@
         border-radius: 5px;
         box-shadow: 0 0 15px black;
         background-color: #fff;
+        gap: 30px;
+        #btn-register{
+            height: 40px;
+            width: 100px;
+            background-color: #00ADB5;
+            color: #EEEEEE;
+            border: none;
+            border-radius: 4px;
+        }
         .mat-form-field{
             // background-color: red;   
             width: 100%;
@@ -24,7 +33,6 @@
             align-items: flex-start;
             .label-input{
                 color: black;
-                background-color: blue;
             }
             input{
                 background-color: #fff;    

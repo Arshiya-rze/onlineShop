@@ -18,7 +18,7 @@
         <mat-error *ngIf="PasswordCtrl.hasError('maxLength')">It's too long. Max: 20 characters.</mat-error>
       </mat-form-field>
 
-      <button type="submit"  mat-raised-button color="primary">Login</button>
+      <button id="btn-login" type="submit">Login</button>
   
       <!-- Other Errors -->
       <p *ngIf="apiErrorMesage">{{apiErrorMesage}}</p>  

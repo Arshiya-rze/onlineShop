@@ -39,9 +39,8 @@
     margin-left: 5%;
     margin-top: 20px;
     border-radius: 20px;
-    background: linear-gradient(315deg, #f0f0f0, #e6e6e6);
-    box-shadow:  -11px -11px 18px #c1c1c1,
-    11px 11px 18px #ffffff;
+    box-shadow: 0 15px 30px #222831;
+    background-color: #EEEEEE;
     .div-hamlonaghl{
         // background-color: black;
         display: flex;
@@ -59,7 +58,7 @@
             .p1{
                 font-size: 18px;
                 font-weight: bold;
-                color: black;
+                color: #222831;
             }
             .p2{
                 font-size: 14px;
@@ -91,7 +90,7 @@
             .p1{
                 font-size: 18px;
                 font-weight: bold;
-                color: black;
+                color: #222831;
             }
             .p2{
                 font-size: 14px;
@@ -123,7 +122,7 @@
             .p1{
                 font-size: 18px;
                 font-weight: bold;
-                color: black;
+                color: #222831;
             }
             .p2{
                 font-size: 14px;
@@ -155,7 +154,7 @@
             .p1{
                 font-size: 18px;
                 font-weight: bold;
-                color: black;
+                color: #222831;
             }
             .p2{
                 font-size: 14px;
@@ -186,7 +185,7 @@
             .p1{
                 font-size: 18px;
                 font-weight: bold;
-                color: black;
+                color: #222831;
             }
             .p2{
                 font-size: 14px;
@@ -208,8 +207,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    background: rgb(238,238,238);
+    background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(0,173,181,1) 35%, rgba(57,62,70,1) 100%);
     .div-matn{
         width: 90%;
         margin-top: 30px;
@@ -220,11 +219,11 @@
         gap: 5px;
         .p1{
             font-size: 30px;
-            color: white;
+            color: #EEEEEE;
         }
         .p2{
             font-size: 20px;
-            color: white;
+            color: #EEEEEE;
         }
     }
     .img-takhfif{
@@ -302,9 +301,10 @@
     margin-left: 2.5%;
     border-radius: 10px;
     gap: 10px;
-    background: linear-gradient(315deg, #ffffff, #fcfcfc);
-    box-shadow:  -7px -7px 28px #898989,
-    7px 7px 28px #ffffff;
+    // background: linear-gradient(315deg, #ffffff, #fcfcfc);
+    // box-shadow:  -7px -7px 28px #898989,
+    // 7px 7px 28px #ffffff;
+    background-color: #EEEEEE;
     .div-mahsol-top{
         display: flex;
         flex-direction: row-reverse;
@@ -313,10 +313,11 @@
         .div-matn-right{
             display: flex;
             align-items: center;
-            border-bottom: 2px solid rgb(0, 119, 255);
+            border-bottom: 2px solid #00ADB5;
             .p-right{
                 font-size: 15px;
                 margin-top: 10px;
+                color: #222831;
             }
         }
         .div-matn-left{
@@ -334,10 +335,9 @@
     .div-mahsol-bottom{
         height: 20rem;
         width: 100%;
-        // background-color: red;
         margin-bottom: 20px;
         #carouselExampleFade{
-            height: 20rem;
+            height: 22rem;
             .carousel-item{
                 height: 20rem;
                 #img1{
@@ -345,7 +345,7 @@
                     width: 20px;
                 }
                 #img5{
-                    width: 40px;
+                    width: 100%;
                     height: 20rem;
                 }
                 #img2{
@@ -367,7 +367,7 @@
                 opacity: 0;
                 transition: 0.5s;
                 #btn1{
-                    background-color: rgb(0, 119, 255);
+                    background-color: #00ADB5;
                     height: 50px;
                     width: 30px;
                     border-radius: 0px 30px 30px 0px;
@@ -375,7 +375,7 @@
                     margin-left: -10px;
                 }
                 #btn2{
-                    background-color: rgb(0, 119, 255);
+                    background-color: #00ADB5;
                     height: 50px;
                     width: 30px;
                     border-radius: 30px 0px 0px 30px;
@@ -397,10 +397,8 @@
     margin-left: 5%;
     height: 300px;
     border-radius: 10px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
-    box-shadow: inset -5px -5px 100px #001837,
-    inset 5px 5px 100px #0060dd;
+    background: rgb(238,238,238);
+    background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(0,173,181,1) 35%, rgba(57,62,70,1) 100%);
     .div-webcam-item{
         display: flex;
         justify-content: space-between;
@@ -420,16 +418,19 @@
             align-items: center;
             .p-matn-webcam{
                 font-size: 17px;
-                color: #fff;
+                color: #EEEEEE;
                 direction: rtl;
+                font-weight: bold;
             }
             .btn-webcam{
-                height: 30px;
+                height: 40px;
                 width: 130px;
                 border-radius: 10px 0px 10px 0px;
                 border: none;
-                font-size: 12px;
-                color: black;
+                font-size: 15px;
+                color: #EEEEEE;
+                font-weight: bold;
+                background-color: #222831;
             }
         }
     }
@@ -447,9 +448,10 @@
     margin-left: 5%;
     margin-top: 30px;
     border-radius: 10px;
-    background: #ffffff;
-    box-shadow:  -5px -5px 16px #666666,
-    5px 5px 16px #ffffff;
+    background-color: #fff;
+    // background: #ffffff;
+    // box-shadow:  -5px -5px 16px #666666,
+    // 5px 5px 16px #ffffff;
     .div-top{
         display: flex;
         flex-direction: row-reverse;
@@ -458,8 +460,8 @@
         .p-dorbin{
             font-size: 15px;
             font-weight: 600;
-            color: black;
-            border-bottom: 1px solid blue;
+            color: #222831;
+            border-bottom: 1px solid #00ADB5;
             height: 35px;
         }
         a{

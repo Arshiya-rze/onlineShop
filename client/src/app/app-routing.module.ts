@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'home', component: MainComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', component: NotFoundComponent},
   {path: 'no-access', component: NoAccessComponent}
 ];
 
